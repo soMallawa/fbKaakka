@@ -2,8 +2,8 @@
 // Your Facebook login details
 
 const login = {
-    email: "mmallawa3062@gmail.com",
-    password: "Mana3062.."
+    email: "",
+    password: ""
 }
 
 // Comments to post on user photos
