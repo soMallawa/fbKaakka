@@ -26,4 +26,6 @@ $ node kaakka.js --victim=<id/username> --fd=true
 ```
 ``sh
 $ node kaakka.js --victim=manthila.mallawa --fd=true
+```
+
 Enjoy :D
