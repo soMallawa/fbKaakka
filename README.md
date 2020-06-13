@@ -24,6 +24,8 @@ To run with face-detection.
 ```sh
 $ node kaakka.js --victim=<id/username> --fd=true
 ```
+
+An Example
 ```sh
 $ node kaakka.js --victim=manthila.mallawa --fd=true
 ```
