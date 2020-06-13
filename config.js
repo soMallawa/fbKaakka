@@ -1,12 +1,12 @@
 
-// Your Facebook login details
+// Your Facebook login credentials
 
 const login = {
     email: "",
     password: ""
 }
 
-// Comments to post on user photos
+// Add comments to post on user photos.
 // Randomly selected :
 
 const comments = [
