@@ -7,7 +7,7 @@ in their firend's timeline again and have some fun ofc.
 
 # Installation
 
-FbKaakka requires [Node.js](https://nodejs.org/) to run.
+FbKaakka requires [Node.js](https://nodejs.org/en/download/) to run.
 
 Install the dependencies.
 
