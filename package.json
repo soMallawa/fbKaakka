@@ -2,7 +2,7 @@
   "name": "fb-kaakka",
   "version": "1.0.0",
   "description": "",
-  "main": "kakka.js",
+  "main": "kaakka.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
