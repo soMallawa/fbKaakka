@@ -1,4 +1,3 @@
-const puppeteer = require('puppeteer')
 const argv = require('yargs').argv
 const config = require('./config.js')
 const logSymbols = require('log-symbols');
@@ -7,30 +6,30 @@ let trollMe = async (user, detectFace = false) => {
 
     var isnum = /^\d+$/.test(user);
 
-    const browser = await puppeteer.launch({headless:true})
+    const browser = await puppeteer.launch({headless:false})
     const page = await browser.newPage();
     const context = browser.defaultBrowserContext();
-    context.overridePermissions("https://m.facebook.com",  ["notifications"]);
+    context.overridePermissions("https://mbasic.facebook.com",  ["notifications"]);
 
-    await page.goto('https://m.facebook.com/login/', { waitUntil:'networkidle2' });
+    await page.goto('https://mbasic.facebook.com/login/', { waitUntil:'networkidle2' });
 
     const email = await page.waitForSelector('#m_login_email')
-    const password = await page.waitForSelector('#m_login_password')
+    const password = await page.waitForSelector('input[name=pass]')
 
     await email.type(config.data.login.email)
     await password.type(config.data.login.password)
     
     setTimeout(() => {
-        page.click('#u_0_4')
+        page.click('input[name=login]')
     }, 500)
     
     console.log("Loging in to the facebook account ...")
-    await page.waitForNavigation();
+    await page.waitForNavigation()
     console.log("Login Success !")
     if(!isnum) {
-        var profilePicsUrl = 'https://m.facebook.com/'+user+'/photos'
+        var profilePicsUrl = 'https://mbasic.facebook.com/'+user+'/photos'
     } else {
-        var profilePicsUrl = 'https://m.facebook.com/profile.php?v=photos&id='+user
+        var profilePicsUrl = 'https://mbasic.facebook.com/profile.php?v=photos&id='+user
     }
 
     await page.goto(profilePicsUrl, { waitUntil: "networkidle2" })
@@ -41,13 +40,14 @@ let trollMe = async (user, detectFace = false) => {
 
         var proAlbumUrl = '';
         
-        let elements = document.getElementsByClassName('touchable primary');
-        let proName = document.getElementsByClassName("_6j_c")[0].innerText
+        let elements = document.getElementsByClassName('cw');
+        let proName = document.getElementsByClassName("bt")[0].innerText
 
         for (var element of elements)
-            if(element.innerText.includes('Profile Pictures')) {
-                var proAlbumUrl = element.href;
-            }
+
+             if(element.children[0].innerText.includes('Profile Pictures')) {
+                 var proAlbumUrl = element.children[0].href;
+             }
                 
         return { name: proName, url: proAlbumUrl };
     });
@@ -56,7 +56,7 @@ let trollMe = async (user, detectFace = false) => {
 
     console.log("Getting all "+proData.name.split(" ")[0]+"'s old profile pictures...")
     await page.goto(proData.url, { waitUntil:"networkidle2" })
-    await page.waitForSelector('div._8brv')
+    await page.waitForSelector('#thumbnail_area')
 
     // Getting all profile pictures
 
@@ -137,6 +137,7 @@ let addComments = async(page, items) => {
         let comment = config.data.comments[Math.floor(Math.random() * config.data.comments.length)];
         
         i++
+        
         // Visiting post link 
         await page.goto(post.href, {waitUntil: "networkidle2"})
 
@@ -145,9 +146,8 @@ let addComments = async(page, items) => {
         await page.focus('#composerInput')
         await page.keyboard.type(comment)
 
-        //Submiting the comment
-        await page.waitForSelector('button[type="submit"]._54k8._52jg._56bs._26vk._3lmf._3fyi._56bv._653w')
-        await page.$$eval('button[type="submit"]._54k8._52jg._56bs._26vk._3lmf._3fyi._56bv._653w', elements => elements[0].click());
+        //Submit Comment 
+        await page.click("input[type=submit]")
         console.log("IMAGE ["+i+"/"+items.length+"] Commenting => "+post.href+" "+logSymbols.success)
     }
 
@@ -156,11 +156,11 @@ let addComments = async(page, items) => {
 }
 
 function extractItems() {
-    const extractedElements = document.querySelectorAll('._8brv');
+    const extractedElements = document.querySelectorAll("#thumbnail_area a");
     const items = [];
     for (let element of extractedElements) {
       
-      let data = {href: element.children[0].href, src: element.children[0].children[0].src}
+      let data = {href: element.href, src: element.children[0].src}
       items.push(data);
 
     }
@@ -230,6 +230,3 @@ function erorrCheck() {
 }
 
 start()
-
-
-
