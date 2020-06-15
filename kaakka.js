@@ -1,3 +1,4 @@
+const puppeteer = require('puppeteer')
 const argv = require('yargs').argv
 const config = require('./config.js')
 const logSymbols = require('log-symbols');
