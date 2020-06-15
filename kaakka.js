@@ -6,7 +6,7 @@ let trollMe = async (user, detectFace = false) => {
 
     var isnum = /^\d+$/.test(user);
 
-    const browser = await puppeteer.launch({headless:false})
+    const browser = await puppeteer.launch({headless:true})
     const page = await browser.newPage();
     const context = browser.defaultBrowserContext();
     context.overridePermissions("https://mbasic.facebook.com",  ["notifications"]);
