@@ -214,7 +214,7 @@ function showHelp(errors) {
 function erorrCheck() {
     var errors = []
 
-    // Error chekcing 
+    // Error cheking 
     if(!config.data.login.email || !config.data.login.password) {
         errors.push("Email or password is not provided. Please add them in the config.js file")
     }
