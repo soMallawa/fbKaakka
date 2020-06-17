@@ -2,8 +2,8 @@
 
 <img src="https://image.flaticon.com/icons/png/512/92/92031.png" alt="crow" width="150" height="150" />
 
-FbKaakka is a command-line tool that dig up old photos from your buddy's facebook profile and comment some random shit on photos to reach 
-in their firend's timeline and ofc to have some fun.
+FbKaakka is a command-line tool that dig up old photos from your buddy's facebook profile and comment some random shit on them to reach 
+in their firend's timeline.
 
 # Installation
 
